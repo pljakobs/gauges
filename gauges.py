@@ -91,9 +91,9 @@ class simpleGauge:
     diff=v-self.value_old
 
     if diff>0:
-      value=self.value_old+diff*self.damping_up
+      value=round(self.value_old+diff*self.damping_up,3)
     else:
-      value=self.value_old+diff*self.damping_down
+      value=round(self.value_old+diff*self.damping_down,3)
 
     if value<self.valMin:
       self.val=self.valMin
@@ -222,7 +222,7 @@ window = pygame.display.set_mode((240, 320))
 #
 ########################################################
 
-CPUTemp = simpleGauge(window, ((0,0),(120,106)), 160, -10, 60, 80, 90, Color("Navy"))
+CPUTemp = simpleGauge(window, ((0,0),(120,106)), 160, 0, 60, 80, 90, Color("Navy"))
 CPUFreq = simpleGauge(window, ((120,0),(120,106)), 300, 500, 1000, 85,95, Color("Navy"))
 
 CPUTemp.SetCallback(getCPUtemperature)
@@ -238,7 +238,9 @@ CPUTemp.autoupdate(0.2,True)
 time.sleep(5)
 CPUTemp.SetCallback(getZero)
 CPUTemp.setbgColor(Color('grey'))
-time.sleep(2)
+for i in range(1,100):
+  #print CPUTemp.getValue()
+  time.sleep(0.1)
 
 CPUFreq.SetCallback(getZero)
 CPUFreq.setbgColor(Color('grey'))
