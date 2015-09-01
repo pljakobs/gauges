@@ -79,7 +79,7 @@ class simpleGauge:
     self.redraw  = True
     self.doRedraw()
 
-  def setDamping(self, damping=0.5,damping_down=0):
+  def setDamping(self, damping=0.75,damping_down=0):
     self.damping_up=damping
     if damping_down==0:
       self.damping_down=damping
@@ -88,12 +88,13 @@ class simpleGauge:
 
   def update(self):
     v=self.callback()
-    if v<self.val:
-      damping=self.damping_down
-    else:
-      damping=self.damping_up
+    diff=v-self.value_old
 
-    value=v*damping + self.value_old
+    if diff>0:
+      value=self.value_old+diff*self.damping_up
+    else:
+      value=self.value_old+diff*self.damping_down
+
     if value<self.valMin:
       self.val=self.valMin
     elif value>self.valMax:
@@ -101,7 +102,7 @@ class simpleGauge:
     else:
       self.val = value
     self.doRedraw()
-    self.value_old=self.val*(1-damping)
+    self.value_old=self.val
 
   def SetCallback(self, callback):
     self.callback=callback
@@ -225,10 +226,10 @@ CPUTemp = simpleGauge(window, ((0,0),(120,106)), 160, -10, 60, 80, 90, Color("Na
 CPUFreq = simpleGauge(window, ((120,0),(120,106)), 300, 500, 1000, 85,95, Color("Navy"))
 
 CPUTemp.SetCallback(getCPUtemperature)
-CPUTemp.setDamping(0.25,0.1)
+CPUTemp.setDamping(0.75,0.75)
 
 CPUFreq.SetCallback(getCPUfrequency)
-CPUFreq.setDamping(0.1,0.01)
+CPUFreq.setDamping(0.75,0.5)
 
 CPUFreq.autoupdate(0.01,True)
 time.sleep(2)
