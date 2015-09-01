@@ -102,8 +102,6 @@ class simpleGauge:
       self.val = value
     self.doRedraw()
     self.value_old=self.val*(1-damping)
-    print "(update) self.value    : ", self.val
-    print "(update) self.value_old: ", self.value_old
 
   def SetCallback(self, callback):
     self.callback=callback
