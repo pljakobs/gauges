@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-# inital drop
-
 import random
 import math
 import sys
@@ -172,6 +170,16 @@ def getZero():
 
 
 
+########################################################
+#
+# if there's no $DISPLAY, we're on a fb-only device
+# you'll have to configure the framebuffer according
+# to your requirements
+#
+# this demo was written for the adafruit 2.8" 320x480
+# display on a RaspberryPi
+#
+########################################################
 
 if os.getenv('DISPLAY')==None:
   os.putenv('SDL_FBDEV', '/dev/fb1')
@@ -184,8 +192,13 @@ pygame.init()
 
 pi=math.pi
 
-debug=False
 window = pygame.display.set_mode((240, 320))
+
+########################################################
+#
+# create two gauges
+#
+########################################################
 
 CPUTemp = simpleGauge(window, ((0,0),(120,106)), 160, -10, 60, 80, 90, Color("Navy"))
 CPUFreq = simpleGauge(window, ((120,0),(120,106)), 300, 500, 1000, 85,95, Color("Navy"))
