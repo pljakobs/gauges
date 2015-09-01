@@ -1,4 +1,15 @@
 #!/usr/bin/python
+########################################################
+#
+# Implement gauges that are automatically updated with
+# values read from callback functions. This is part of
+# a RaspberyPi project and thus specifically tuned to
+# small scree displays
+#
+# I was unable to find a similar library that didn't
+# require a browser to display gauges.
+#
+########################################################
 
 import random
 import math
