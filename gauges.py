@@ -166,6 +166,23 @@ class updateThread(threading.Thread):
   def stop(self):
     self.stop_event.set()
 
+
+########################################################
+#
+# a callback function that returns 0
+# used to let a gauge fall off to 0
+#
+########################################################
+def getZero():
+  return float(0)
+
+########################################################
+#
+# those only make sense on the RasPi
+# they're also the reason, why you need to start the
+# demo code with root rights
+#
+########################################################
 def getCPUtemperature():
  res = os.popen('/opt/vc/bin/vcgencmd measure_temp').readline()
  return float(res.replace("temp=","").replace("'C\n",""))
@@ -173,11 +190,6 @@ def getCPUtemperature():
 def getCPUfrequency():
  res = os.popen('/opt/vc/bin/vcgencmd measure_clock arm').readline()
  return float(res.replace("frequency(45)=",""))/1000000
-
-def getZero():
-  return float(0)
-
-
 
 ########################################################
 #
